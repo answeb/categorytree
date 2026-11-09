@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    public: true
+    autowire: true
+    autoconfigure: true
+
+  Answeb\CategoryTree\Tree\CategoryTreeProvider: ~
+  Answeb\CategoryTree\Move\CategoryPositionRepository: ~
+  Answeb\CategoryTree\Move\MoveGuard: ~
+  Answeb\CategoryTree\Move\CategoryMover: ~
+
+  Answeb\CategoryTree\Controller\Admin\CategoryTreeController:
+    tags: ['controller.service_arguments']

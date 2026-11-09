@@ -1,0 +1,21 @@
+category_tree_index:
+  path: /categorytree
+  methods: [GET]
+  defaults:
+    _controller: 'Answeb\CategoryTree\Controller\Admin\CategoryTreeController::indexAction'
+    _legacy_controller: Admincategorytree
+    _legacy_link: Admincategorytree
+
+category_tree_data:
+  path: /categorytree/tree
+  methods: [GET]
+  defaults:
+    _controller: 'Answeb\CategoryTree\Controller\Admin\CategoryTreeController::dataAction'
+    _legacy_controller: Admincategorytree
+
+category_tree_move:
+  path: /categorytree/move
+  methods: [POST]
+  defaults:
+    _controller: 'Answeb\CategoryTree\Controller\Admin\CategoryTreeController::moveAction'
+    _legacy_controller: Admincategorytree

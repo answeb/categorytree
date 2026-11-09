@@ -1,0 +1,237 @@
+.ct-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+}
+
+.ct-search {
+  width: 260px;
+  max-width: 100%;
+}
+
+.ct-help {
+  margin-bottom: 1rem;
+}
+
+.ct-tree-wrapper {
+  position: relative;
+}
+
+.ct-tree-wrapper.is-busy .ct-tree {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.ct-loader {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ct-empty {
+  padding: 1rem;
+  color: #6c868e;
+}
+
+/* Arbre */
+.ct-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.75rem;
+}
+
+.ct-list--root {
+  padding-left: 0;
+}
+
+.ct-node.is-collapsed > .ct-list {
+  display: none;
+}
+
+.ct-row {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  min-height: 2.25rem;
+  padding: .125rem .5rem .125rem .25rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.ct-row:hover {
+  background: #f4f9fb;
+  border-color: #dfe8eb;
+}
+
+.ct-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #6c868e;
+  cursor: pointer;
+}
+
+.ct-toggle--empty {
+  cursor: default;
+}
+
+.ct-handle {
+  display: inline-flex;
+  color: #8a9ba1;
+  cursor: grab;
+  touch-action: none;
+}
+
+.ct-handle--locked {
+  cursor: default;
+}
+
+.ct-handle .material-icons,
+.ct-toggle .material-icons,
+.ct-action .material-icons {
+  font-size: 1.25rem;
+}
+
+.ct-name {
+  font-weight: 600;
+}
+
+.ct-name mark {
+  padding: 0;
+  background: #fff3b0;
+}
+
+.ct-id {
+  color: #8a9ba1;
+  font-size: .75rem;
+}
+
+.ct-badge {
+  font-weight: 400;
+}
+
+.ct-node.is-inactive > .ct-row .ct-name {
+  color: #8a9ba1;
+  font-weight: 400;
+}
+
+.ct-actions {
+  display: inline-flex;
+  margin-left: auto;
+  opacity: .35;
+}
+
+.ct-row:hover .ct-actions,
+.ct-row:focus-within .ct-actions {
+  opacity: 1;
+}
+
+.ct-action {
+  padding: .125rem .25rem;
+  line-height: 1;
+}
+
+.ct-filter-note {
+  margin-bottom: .5rem;
+}
+
+/* Glisser-déposer */
+.ct-tree.is-dragging .ct-actions {
+  visibility: hidden;
+}
+
+.ct-tree.is-dragging .ct-node:not(.is-collapsed) > .ct-list--empty {
+  min-height: 1.75rem;
+  margin: .125rem 0 .25rem 1.75rem;
+  padding: 0;
+  border: 1px dashed #b7ced3;
+  border-radius: 4px;
+}
+
+.ct-tree.is-dragging .ct-node:not(.is-collapsed) > .ct-list--empty::before {
+  content: attr(data-drop-label);
+  display: block;
+  padding: .25rem .5rem;
+  color: #8a9ba1;
+  font-size: .75rem;
+}
+
+.ct-tree.is-dragging .ct-list--empty:has(.ct-node)::before {
+  display: none;
+}
+
+.ct-node.is-ghost > .ct-row {
+  background: #e6f6fa;
+  border: 1px dashed #25b9d7;
+}
+
+.ct-node.is-chosen > .ct-row {
+  background: #fff;
+}
+
+/* Dialogue */
+.ct-dialog {
+  width: 480px;
+  max-width: calc(100vw - 2rem);
+  padding: 1.5rem;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .2);
+}
+
+.ct-dialog::backdrop {
+  background: rgba(0, 0, 0, .4);
+}
+
+.ct-dialog-title {
+  margin-bottom: 1rem;
+}
+
+.ct-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  margin-top: 1.5rem;
+}
+
+/* Notification */
+.ct-toast {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: calc(100vw - 3rem);
+  padding: .75rem 1rem;
+  background: #363a41;
+  color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+}
+
+.ct-toast.is-error {
+  background: #c05c67;
+}
+
+.ct-toast[hidden] {
+  display: none;
+}
+
+.ct-toast-undo {
+  color: #7cd5e7;
+  font-weight: 600;
+  padding: 0;
+}
+
+.ct-toast-undo:hover {
+  color: #fff;
+}

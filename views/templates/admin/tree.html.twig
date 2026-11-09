@@ -1,0 +1,96 @@
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+{% trans_default_domain 'Modules.Categorytree.Admin' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('../modules/categorytree/views/css/category-tree.css') }}">
+{% endblock %}
+
+{% block content %}
+  {% if multistoreActive %}
+    <div class="alert alert-danger" role="alert">
+      <p class="alert-text">{{ 'Module non compatible avec le multiboutique'|trans }}</p>
+    </div>
+  {% else %}
+    <div class="card ct-card">
+      <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+        <h3 class="mb-0">{{ 'Arborescence des catégories'|trans }}</h3>
+        <div class="ct-toolbar">
+          <input type="search" class="form-control ct-search" placeholder="{{ 'Rechercher une catégorie…'|trans }}" aria-label="{{ 'Rechercher une catégorie'|trans }}">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-ct-expand-all>{{ 'Tout déplier'|trans }}</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-ct-collapse-all>{{ 'Tout replier'|trans }}</button>
+        </div>
+      </div>
+      <div class="card-body">
+        {% if canMove %}
+          <p class="text-muted ct-help">{{ 'Faites glisser une catégorie avec la poignée pour la déplacer. Déposez-la sur une autre catégorie pour l\'y ranger, ou entre deux catégories pour changer l\'ordre.'|trans }}</p>
+        {% endif %}
+        <div class="ct-tree-wrapper">
+          <div id="ct-tree"
+               class="ct-tree"
+               data-data-url="{{ dataUrl }}"
+               data-move-url="{{ moveUrl }}"
+               data-edit-url="{{ editUrlTemplate }}"
+               data-create-url="{{ createUrlTemplate }}"
+               data-placeholder-id="{{ placeholderId }}"
+               data-can-move="{{ canMove ? '1' : '0' }}"
+               data-i18n="{{ {
+                 edit: 'Modifier'|trans,
+                 addChild: 'Ajouter une sous-catégorie'|trans,
+                 moveUp: 'Monter'|trans,
+                 moveDown: 'Descendre'|trans,
+                 moveTo: 'Déplacer vers…'|trans,
+                 drag: 'Glisser pour déplacer'|trans,
+                 expand: 'Déplier'|trans,
+                 collapse: 'Replier'|trans,
+                 disabled: 'désactivée'|trans,
+                 locked: 'Catégorie racine de la boutique, non déplaçable'|trans,
+                 dropInside: 'Déposer dans « %name% »'|trans,
+                 confirmMove: 'Déplacer « %name% » dans « %parent% » ?'|trans,
+                 confirm: 'Déplacer'|trans,
+                 cancel: 'Annuler'|trans,
+                 moved: 'Catégorie déplacée'|trans,
+                 undo: 'Annuler'|trans,
+                 undone: 'Déplacement annulé'|trans,
+                 noResult: 'Aucune catégorie ne correspond à la recherche.'|trans,
+                 searchActive: 'Le déplacement est désactivé pendant la recherche.'|trans,
+                 loadError: 'Impossible de charger l\'arborescence.'|trans,
+                 networkError: 'Erreur réseau : l\'arborescence a été rechargée.'|trans,
+                 moveToTitle: 'Déplacer « %name% »'|trans,
+                 moveToLabel: 'Nouvelle catégorie parente'|trans,
+                 moveToHint: 'La catégorie sera placée en dernière position.'|trans,
+                 close: 'Fermer'|trans
+               }|json_encode }}"
+               aria-busy="true">
+            <div class="ct-empty">{{ 'Chargement…'|trans }}</div>
+          </div>
+          <div class="ct-loader" hidden><span class="spinner-border text-primary" role="status"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <dialog class="ct-dialog" id="ct-dialog">
+      <form method="dialog" class="ct-dialog-form">
+        <h4 class="ct-dialog-title"></h4>
+        <div class="ct-dialog-body"></div>
+        <div class="ct-dialog-actions">
+          <button type="submit" value="cancel" class="btn btn-outline-secondary" data-ct-cancel></button>
+          <button type="submit" value="confirm" class="btn btn-primary" data-ct-confirm></button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="ct-toast" role="status" aria-live="polite" hidden>
+      <span class="ct-toast-text"></span>
+      <button type="button" class="btn btn-sm btn-link ct-toast-undo" hidden></button>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% if not multistoreActive %}
+    <script src="{{ asset('../modules/categorytree/views/js/vendor/Sortable.min.js') }}"></script>
+    <script src="{{ asset('../modules/categorytree/views/js/category-tree.js') }}"></script>
+  {% endif %}
+{% endblock %}
